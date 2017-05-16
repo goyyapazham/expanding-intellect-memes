@@ -9,6 +9,36 @@ server = MongoClient("149.89.150.100")
 #creating the database
 db = server.dbSample
 
+
+studentInfoCollection = db.studentInfo
+assignmentsCollection = db.assignments
+
+
+def submitToStudents(name, password, year):
+    num = db.studentInfoCollection.count()
+    print num
+    currentID = num + 1
+    dStudent = {"name":name, "password":password, "studentID":currentID, "year":year}
+
+    studentInfoCollection.insert_one(dStudent)
+
+
+def deleteFromStudents(id):
+    db.studentInfoCollection.deleteOne({"studentID":id})
+    
+def displayStudentInfo():
+    for student in studentInfoCollection.find():
+        print student
+
+submitToStudents("Costa", "pass1", 2017)
+submitToStudents("Nala", "pass2", 2016)
+submitToStudents("Elias", "pass3", 2017)
+displayStudentInfo()
+deleteFromStudents(2)
+displayStudentInfo()        
+
+
+"""
 #creating the collection
 studentCollection = db.students
 
@@ -83,3 +113,4 @@ for i in teachers:
 	print	
 	print
 teacherCollection.insert_one(dTeacher)
+"""
