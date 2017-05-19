@@ -2,9 +2,10 @@ from pymongo import MongoClient
 import csv
 
 #change from local server to Homer server
-#server = MongoClient("127.0.0.1")
+server = MongoClient("127.0.0.1")
 #server = MongoClient('homer.stuy.edu')
-server = MongoClient("149.89.150.100")
+#server = MongoClient("149.89.150.100")
+#server = MongoClient()
 
 #creating the database
 db = server.dbSample
@@ -30,12 +31,12 @@ def displayStudentInfo():
     for student in studentInfoCollection.find():
         print student
 
-submitToStudents("Costa", "pass1", 2017)
-submitToStudents("Nala", "pass2", 2016)
-submitToStudents("Elias", "pass3", 2017)
+#submitToStudents("Costa", "pass1", 2017)
+#submitToStudents("Nala", "pass2", 2016)
+#submitToStudents("Elias", "pass3", 2017)
 displayStudentInfo()
-deleteFromStudents(2)
-displayStudentInfo()        
+#deleteFromStudents(2)
+#displayStudentInfo()        
 
 
 """
