@@ -41,6 +41,21 @@ def displayStudentInfo():
     #print display
     c.execute(display)
     print c.fetchall()
+
+#GET FUNCTIONS....given ID, get various info from student table
+
+def getName(iD):
+    get = "SELECT name FROM studentInfo WHERE id = %d"%(iD)
+    display = c.execute(get).fetchone()[0]
+    #print display
+    return display
+
+def getYear(iD):
+    get = "SELECT year FROM studentInfo WHERE id = %d"%(iD)
+    display = c.execute(get).fetchone()[0]
+    return display
+
+ 
     
 #createStudents()    
 #submitToStudents("Costa", "pass1", 2017)
@@ -49,13 +64,15 @@ def displayStudentInfo():
 #submitToStudents("Sebastian","pass4",2018)
 #displayStudentInfo()
 #deleteFromStudents(3)
+
+'''
 displayStudentInfo()
 print
 print
 print
 print
 
-
+'''
 
 
 
@@ -79,11 +96,12 @@ c.execute(query)
 ###as of right now, im just creating one table with ALL assignments
 
 def createAssignment():
-    q = "CREATE TABLE assignments (aNum INTEGER, title TEXT, studentID INTEGER, imageText TEXT, upvotes INTEGER, script TEXT)"
+    q = "CREATE TABLE assignments (assignmentNumber INTEGER, title TEXT, studentID INTEGER, imageText TEXT, upvotes INTEGER, script TEXT)"
     print q
     c.execute(q)
 
-    
+
+#USE imgStrConvert to get the image text    
 def addWork(aNum, title, studentID, imageText, upvotes, script):
     insert = "INSERT INTO assignments VALUES (%d,'%s',%d,'%s',%d,'%s');"%(aNum,title,studentID,imageText,upvotes,script)
     #print insert
@@ -96,19 +114,50 @@ def displayAllSubmittedAssignments():
     print c.fetchall()
 
 def addUpvotes(studentID, aNum, upvoteNum):
-    getNum = "SELECT upvotes FROM assignments WHERE studentID = %d AND aNum = %d"%(studentID,aNum)
-    curr = c.execute(getNum)
-    newUpvote = curr + upvoteNum
-    add = "UPDATE assignments SET upvotes = %d WHERE studentID = %d AND aNum = %d"%(newUpvote,studentID,aNum)
+    getNum = "SELECT upvotes FROM assignments WHERE studentID = %d AND assignmentNumber = %d"%(studentID,aNum)
+    curr = c.execute(getNum).fetchone()
+    print curr
+    print curr[0]
+    newUpvote = curr[0] + upvoteNum
+    add = "UPDATE assignments SET upvotes = %d WHERE studentID = %d AND assignmentNumber = %d"%(newUpvote,studentID,aNum)
     c.execute(add)
+
+
+
+#GET FUNCTIONS....input is studentID and assignment number. returns the rest of the info
+
+#def get<INFO TO RETURN> (studentID, assignmentNumber)
+
+def getTitle(sID, aNum):
+    get = "SELECT title FROM assignments WHERE studentID = %d AND assignmentNumber = %d"%(sID,aNum)
+    display = c.execute(get).fetchone()[0]
+    return display
+
+
+#Use imgStrConvert to convert the returned string to image
+def getImageText(sID, aNum):
+    get = "SELECT imageText FROM assignments WHERE studentID = %d AND assignmentNumber = %d"%(sID,aNum)
+    display = c.execute(get).fetchone()[0]
+    return display
+
+def getUpvotes(sID, aNum):
+    get = "SELECT upvotes FROM assignments WHERE studentID = %d AND assignmentNumber = %d"%(sID,aNum)
+    display = c.execute(get).fetchone()[0]
+    return display
+
+def getScript(sID, aNum):
+    get = "SELECT script FROM assignments WHERE studentID = %d AND assignmentNumber = %d"%(sID,aNum)
+    display = c.execute(get).fetchone()[0]
+    return display
+
 
 
 #createAssignment()
 #addWork(1, "Assignment 1", 2,"this is the ascii text of the image", 0, "this is the script text for the work")
 #addWork(3, "Assignment 3", 2,"OTHER this is the ascii text of the image", 3, "OTHERthis is the script text for the work")
-displayAllSubmittedAssignments()
-addUpvotes(2,1,5)
-displayAllSubmittedAssignments()
+#displayAllSubmittedAssignments()
+#addUpvotes(2,3,5)
+#displayAllSubmittedAssignments()
 
     
 db.commit()
