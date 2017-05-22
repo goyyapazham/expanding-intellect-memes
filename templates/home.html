@@ -37,9 +37,21 @@
 	</ul>
       </div>
     </nav>
+
     
-    <p>{{students}}</p>
-    <p>{{assignments}}</p>
+    <p>
+      <u>Students Table</u>
+      {% for student in students %}
+      <li>{{student}}</li>
+      {% endfor %}
+    </p>
+    
+    <p>
+      <u>Assignment Table</u>
+      {% for assignment in assignments %}
+      <li>{{assignment}}</li>
+      {% endfor %}
+    </p>
     
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>

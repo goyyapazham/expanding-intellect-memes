@@ -20,7 +20,7 @@ DOCUMENT PROPERTY -> COLUMN/CELL IN TABLE
 def createStudents():
     
     q = "CREATE TABLE studentInfo (name TEXT, password TEXT, year INTEGER, id INTEGER PRIMARY KEY AUTOINCREMENT)"
-    print q
+   # print q
     c.execute(q)
 
 
@@ -97,7 +97,7 @@ c.execute(query)
 
 def createAssignment():
     q = "CREATE TABLE assignments (assignmentNumber INTEGER, title TEXT, studentID INTEGER, imageText TEXT, upvotes INTEGER, script TEXT)"
-    print q
+   # print q
     c.execute(q)
 
 
@@ -116,8 +116,8 @@ def displayAllSubmittedAssignments():
 def addUpvotes(studentID, aNum, upvoteNum):
     getNum = "SELECT upvotes FROM assignments WHERE studentID = %d AND assignmentNumber = %d"%(studentID,aNum)
     curr = c.execute(getNum).fetchone()
-    print curr
-    print curr[0]
+   # print curr
+   # print curr[0]
     newUpvote = curr[0] + upvoteNum
     add = "UPDATE assignments SET upvotes = %d WHERE studentID = %d AND assignmentNumber = %d"%(newUpvote,studentID,aNum)
     c.execute(add)
@@ -170,5 +170,5 @@ def getScript(sID, aNum):
 #displayAllSubmittedAssignments()
 
     
-db.commit()
-db.close()
+#db.commit()
+#db.close()
