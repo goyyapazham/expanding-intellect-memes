@@ -40,7 +40,7 @@ def displayStudentInfo():
     display = "SELECT * FROM studentInfo"
     #print display
     c.execute(display)
-    print c.fetchall()
+    return c.fetchall()
 
 #GET FUNCTIONS....given ID, get various info from student table
 
@@ -111,7 +111,7 @@ def displayAllSubmittedAssignments():
     display = "SELECT * FROM assignments"
     #print display
     c.execute(display)
-    print c.fetchall()
+    return c.fetchall()
 
 def addUpvotes(studentID, aNum, upvoteNum):
     getNum = "SELECT upvotes FROM assignments WHERE studentID = %d AND assignmentNumber = %d"%(studentID,aNum)

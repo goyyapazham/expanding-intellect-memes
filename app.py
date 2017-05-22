@@ -1,13 +1,13 @@
 from flask import Flask, render_template, url_for, request, redirect, session
 import json
-from db import sqliteAttempt
+import sqliteAttempt #import getStudentInfo
 
 app = Flask(__name__)
 app.secret_key = 'key'
 
 @app.route('/')
 def about():
-    return render_template('home.html')
+    return render_template('home.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.getAllSubmittedAssignments())
 
 '''
 @app.route('/login/')
