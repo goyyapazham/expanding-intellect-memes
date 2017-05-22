@@ -126,6 +126,16 @@ def addUpvotes(studentID, aNum, upvoteNum):
 
 #GET FUNCTIONS....input is studentID and assignment number. returns the rest of the info
 
+def getName(sID):
+    get = "SELECT name FROM studentInfo WHERE id == %d"%(sID)
+    display = c.execute(get).fetchone()[0]
+    return display
+
+def getYear(sID):
+    get = "SELECT year FROM studentInfo WHERE id == %d"%(sID)
+    display = c.execute(get).fetchone()[0]
+    return display
+
 #def get<INFO TO RETURN> (studentID, assignmentNumber)
 
 def getTitle(sID, aNum):
