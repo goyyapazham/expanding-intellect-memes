@@ -8,7 +8,15 @@ app.secret_key = 'key'
 
 @app.route('/')
 def about():
-    return render_template('home.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments())
+    #if session["username"] != None:
+     #   pl = "/profile/" + session["username"]
+      #  return render_template('home.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), profile_link = pl)
+    #else:
+    return render_template('home.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), profile_link = None)
+
+@app.route("/gallery")
+def gallery():
+    return render_template('gallery.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), profile_link = None)
 
 '''
 @app.route('/login/')
