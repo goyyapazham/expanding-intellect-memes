@@ -31,6 +31,20 @@ def profile(id):
     year = sqliteAttempt.getYear(id))
     return render_template('profile.html', name = name, year = year)
 '''
+@app.route('/auth', methods = ['POST', 'GET']) # OAuth authentication route
+def oauth_testing():
+    flow = flow_from_clientsecrets('client_secrets.json',
+                                   scope = 'https://www.googleapis.com/auth/userinfo.email',
+                                   redirect_uri = url_for('oauth_testing', _external = True))
+
+    if 'code' not in request.args: # If we are on the first step of the authentication
+        auth_uri = flow.step1_get_authorize_url() # This is the url for the nice google login page
+        return redirect(auth_uri) # Redirects to that page
+    else: # That login page will redirect to this page but with a code in the request arguments
+        auth_code = request.args.get('code')
+        credentials = flow.step2_exchange(auth_code) # This is step two authentication to get the code and store the credentials in a credentials object
+        session['credentials'] = credentials.to_json() # Converts the credentials to json and stores it in the session variable
+        return redirect(url_for('about'))
 
 if __name__ == '__main__':
     app.rebug = True
