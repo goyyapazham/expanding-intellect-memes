@@ -16,7 +16,24 @@ def about():
 
 @app.route("/gallery")
 def gallery():
-    return render_template('gallery.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), profile_link = None)
+    return render_template('gallery.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), submissions = [
+            ["Sebastian Cain", "Spinning Donkey"],
+            ["Elias Milborn", "Rotating Mule"],
+            ["Nalanda Sharadjaya", "Gyrating Yak"],
+            ["Constantine \"I finished my part of the project\" Athanitis", "Revolving Llama"],
+            ["Sebastian Cain", "Spinning Donkey"],
+            ["Elias Milborn", "Rotating Mule"],
+            ["Nalanda Sharadjaya", "Gyrating Yak"],
+            ["Constantine \"I finished my part of the project\" Athanitis", "Revolving Llama"],
+            ["Sebastian Cain", "Spinning Donkey"],
+            ["Elias Milborn", "Rotating Mule"],
+            ["Nalanda Sharadjaya", "Gyrating Yak"],
+            ["Constantine \"I finished my part of the project\" Athanitis", "Revolving Llama"],
+            ["Sebastian Cain", "Spinning Donkey"],
+            ["Elias Milborn", "Rotating Mule"],
+            ["Nalanda Sharadjaya", "Gyrating Yak"],
+            ["Constantine \"I finished my part of the project\" Athanitis", "Revolving Llama"]
+            ], profile_link = None)
 
 '''
 @app.route('/login/')

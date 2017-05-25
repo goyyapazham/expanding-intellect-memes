@@ -9,6 +9,16 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <!--<style>
+      .card-columns {
+      @include media-breakpoint-only(sm) {
+      column-count: 4;
+      }
+      @include media-breakpoint-only(xl) {
+      column-count: 5;
+      }
+      }
+    </style>-->
   </head>
   <body>
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
@@ -37,25 +47,22 @@
 	</ul>
       </div>
     </nav>
-
     <div class="container">
-      <br><br>
-      <div class="row">
-	{% for student in students %}
-	<div class="col-sm-4">
-	  <div class="card">
-	    <img class="card-img-top" src="..." alt="Card image cap">
-	    <div class="card-block">
-	      <h4 class="card-title">Picture Title</h4>
-	      <p class="card-text">By: Example Student</p>
-	    </div>
-	    <div class="card-block">
-	      <a href="#" class="card-link">Open Larger Image</a>
-	      <a href="#" class="card-link">View Code</a>
-	    </div>
-	  </div>
+    <div class="card-columns">
+      {% for s in submissions %}
+      <script>console.log("submission");</script>
+      <div class="card">
+	<img class="card-img-top" style="width:100%; height:auto;" src="static/test.png" alt="Card image cap">
+	<div class="card-block">
+	  <h4 class="card-title">{{s[1]}}</h4>
+	  <p class="card-text">By: {{s[0]}}</p>
 	</div>
-	{% endfor %}
+	<div class="card-footer">
+	  <pre><code>&lt;p&gt;Sample text here...&lt;/p&gt;
+&lt;p&gt;And another line of sample text here...&lt;/p&gt;
+</code></pre></div>
+      </div>
+      {% endfor %}
       </div>
       <p>
 	<u>Students Table</u>
