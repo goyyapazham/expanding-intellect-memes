@@ -21,11 +21,13 @@
 	  <li class="nav-item active">
             <a class="nav-link" href="#">Home <!--<span class="sr-only">(current)</span>--></a>
 	  </li>
-	  {% if profile_link == None %}
+	  {% if profile_link != None %}
 	  <li class="nav-item">
             <a class="nav-link" href={{profile_link}}>My Profile</a>
 	  </li>
 	  {% endif %}
+
+
 	  <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Galleries
@@ -40,6 +42,17 @@
               <a class="dropdown-item" href="/gallery">Gallery 3</a>
 	    </div>
 	  </li>
+	</ul>
+	<ul class="navbar-nav ml-auto">
+	  {% if profile_link != None %}
+	  <li class="nav-item">
+            <a class="nav-link" href="/auth">Login</a>
+	  </li>
+	  {% else %}
+	  <li class="nav-item">
+            <a class="nav-link" href="#">Logout</a>
+	  </li>
+	  {% endif %}
 	</ul>
       </div>
     </nav>
