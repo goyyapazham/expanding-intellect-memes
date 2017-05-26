@@ -28,12 +28,14 @@ def submitToStudents(name, password, year):
     insert = "INSERT INTO studentInfo VALUES ('%s','%s',%d,NULL);"%(name, password, year)
     #print insert
     c.execute(insert)
+    db.commit()
 
 
 def deleteFromStudents(id):
     delete = "DELETE FROM studentInfo WHERE id = %d;"%(id)
     #print delete
     c.execute(delete)
+    db.commit()
 
 
 def displayStudentInfo():
@@ -106,6 +108,7 @@ def addWork(aNum, title, studentID, imageText, upvotes, script):
     insert = "INSERT INTO assignments VALUES (%d,'%s',%d,'%s',%d,'%s');"%(aNum,title,studentID,imageText,upvotes,script)
     #print insert
     c.execute(insert)
+    db.commit()
 
 def displayAllSubmittedAssignments():
     display = "SELECT * FROM assignments"
@@ -121,6 +124,7 @@ def addUpvotes(studentID, aNum, upvoteNum):
     newUpvote = curr[0] + upvoteNum
     add = "UPDATE assignments SET upvotes = %d WHERE studentID = %d AND assignmentNumber = %d"%(newUpvote,studentID,aNum)
     c.execute(add)
+    db.commit()
 
 
 
@@ -172,3 +176,49 @@ def getScript(sID, aNum):
     
 #db.commit()
 #db.close()
+
+########################################################################
+#Creating the Gallery Table
+
+def createGallery():
+    q = "CREATE TABLE galleries (title TEXT, galleryNum INTEGER PRIMARY KEY AUTOINCREMENT)"
+   # print q
+    c.execute(q)
+
+def getAllSubmissionsFromGallery(galleryNum):
+    display = "SELECT * FROM assignments WHERE assignmentNumber = %d"%(galleryNum)
+    #print display
+    c.execute(display)
+    return c.fetchall()
+
+def addGallery(galleryTitle):
+    insert = "INSERT INTO galleries VALUES('%s', NULL)"%(galleryTitle)
+    print "added to gallery table"
+    c.execute(insert)
+    db.commit()
+
+
+def getTitle(galleryNum):
+    display = "SELECT title FROM galleries WHERE galleryNum = %d"%(galleryNum)
+    c.execute(display)
+    return c.fetchall()
+
+def getAllGalleries():
+    display = "SELECT * FROM galleries"
+    c.execute(display)
+    return c.fetchall()
+
+def delGallery(galleryTitle):
+    delete = "DELETE FROM galleries WHERE title = '%s'"%(galleryTitle)
+    c.execute(delete)
+    db.commit()
+
+#createGallery()
+#addGallery("Gallery 1")
+#addGallery("gallery 2")
+#addGallery("gallery 3")
+#print getAllSubmissionsFromGallery(1)
+
+#print getAllGalleries()
+delGallery("gallery 2")
+print getAllGalleries()
