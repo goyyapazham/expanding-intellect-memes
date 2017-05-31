@@ -40,7 +40,7 @@ def gallery():
             ["Elias Milborn", "Rotating Mule"],
             ["Nalanda Sharadjaya", "Gyrating Yak"],
             ["Constantine \"I finished my part of the project\" Athanitis", "Revolving Llama"]
-            ], profile_link = None, image=imgStrConvert.imgToStr("db/randImg.png"))
+            ], profile_link = None, image=imgStrConvert.imgToStr("db/giphy.gif"))
 
 '''
 @app.route('/login/')
