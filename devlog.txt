@@ -65,3 +65,8 @@ sebastianC  -- 2017-05-30 14:45
 Gallery now displays images from database
 Fixed bugs in login.py and home.html files
 
+eliasM -- 2017-05-30 21:45
+Logout works
+If you login with a non-stuy.edu email you are automatically logged out
+Profile link more appropriately reflects the desired link
+
