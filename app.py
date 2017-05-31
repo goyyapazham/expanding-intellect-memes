@@ -17,7 +17,7 @@ def about():
       #  return render_template('home.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), profile_link = pl)
     #else:
     if login.loggedIn(session):
-        return render_template('home.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), profile_link = "/profile/" + login.getEmail(session).replace('@stuy.edu',''))
+        return render_template('home.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), profile_link = login.getEmail(session).replace('@stuy.edu',''))
     else:
         return render_template('home.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), profile_link = None)
         
@@ -66,6 +66,8 @@ def authenticate():
         auth_code = request.args.get('code')
         credentials = flow.step2_exchange(auth_code) # This is step two authentication to get the code and store the credentials in a credentials object
         session['credentials'] = credentials.to_json() # Converts the credentials to json and stores it in the session variable
+        print "BLAHHHHHHH"
+        print session["credentials"]
         if not login.getEmail(session).endswith('@stuy.edu'):
             session.pop('credentials')
             return redirect("/")#add code to say reason for failed login

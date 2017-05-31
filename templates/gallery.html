@@ -28,47 +28,63 @@
       <a class="navbar-brand" href="home.html">Graphics Gallery</a>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
 	<ul class="navbar-nav">
-	  <li class="nav-item">
-            <a class="nav-link" href="/">Home <!--<span class="sr-only">(current)</span>--></a>
+	  <li class="nav-item active">
+            <a class="nav-link" href="#">Home <!--<span class="sr-only">(current)</span>--></a>
 	  </li>
+	  {% if profile_link != None %}
 	  <li class="nav-item">
-            <a class="nav-link" href={{profile_link}}>My Profile</a>
+            <a class="nav-link" href="/profile/{{profile_link}}">My Profile</a>
 	  </li>
-	  <li class="nav-item active dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	  {% endif %}
+
+
+	  <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Galleries
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#">Gallery 1</a>
-              <a class="dropdown-item" href="#">Gallery 2</a>
-              <a class="dropdown-item" href="#">Gallery 3</a>
-            </div>
+              <a class="dropdown-item" href="/gallery">Gallery 1</a>
+              <a class="dropdown-item" href="/gallery">Gallery 2</a>
+              <a class="dropdown-item" href="/gallery">Gallery 3</a>
+	    </div>
 	  </li>
+	</ul>
+	<ul class="navbar-nav ml-auto">
+	  {% if profile_link == None %}
+	  <li class="nav-item">
+            <a class="nav-link" href="/auth">Login</a>
+	  </li>
+	  {% else %}
+	  <li class="nav-item">
+	    <a class="nav-link" href="/logout">Logout (signed in as {{profile_link}})</a>
+	  </li>
+	  {% endif %}
 	</ul>
       </div>
     </nav>
+
     <div class="container">
-    <div class="card-columns">
-      {% for s in submissions %}
-      <script>console.log("submission");</script>
-      <div class="card">
-	<img class="card-img-top" style="width:100%; height:auto;" src="data:image/gif;base64,{{image}}" alt="Card image cap">
-	<div class="card-block">
-	  <h4 class="card-title">{{s[1]}}</h4>
-	  <p class="card-text">By: {{s[0]}}</p>
+      <a href="#upload"><button type="button" class="btn btn-primary btn-lg btn-block active">Upload Submission</button></a>
+      <div class="card-columns">
+	{% for s in submissions %}
+	<script>console.log("submission");</script>
+	<div class="card">
+	  <img class="card-img-top" style="width:100%; height:auto;" src="data:image/gif;base64,{{image}}" alt="Card image cap">
+	  <div class="card-block">
+	    <h4 class="card-title">{{s[1]}}</h4>
+	    <p class="card-text">By: {{s[0]}}</p>
+	  </div>
+	  <div class="card-footer">
+	    <pre><code>&lt;p&gt;Sample text here...&lt;/p&gt;</code></pre>
+	  </div>
 	</div>
-	<div class="card-footer">
-	  <pre><code>&lt;p&gt;Sample text here...&lt;/p&gt;
-&lt;p&gt;And another line of sample text here...&lt;/p&gt;
-</code></pre></div>
-      </div>
-      {% endfor %}
+	{% endfor %}
       </div>
       <p>
 	<u>Students Table</u>
 	{% for student in students %}
 	<li>{{student}}</li>
-      {% endfor %}
+	{% endfor %}
       </p>
       
       <p>

@@ -23,7 +23,7 @@
 	  </li>
 	  {% if profile_link != None %}
 	  <li class="nav-item">
-            <a class="nav-link" href={{profile_link}}>My Profile</a>
+            <a class="nav-link" href="/profile/{{profile_link}}">My Profile</a>
 	  </li>
 	  {% endif %}
 
@@ -33,10 +33,6 @@
               Galleries
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-<!--	      {% for gallery in galleries %}
-              <a class="dropdown-item" href={{gallery[1]}}>{{gallery[0]}}</a>
-<!--              {% endfor %}-->
-
               <a class="dropdown-item" href="/gallery">Gallery 1</a>
               <a class="dropdown-item" href="/gallery">Gallery 2</a>
               <a class="dropdown-item" href="/gallery">Gallery 3</a>
@@ -50,7 +46,7 @@
 	  </li>
 	  {% else %}
 	  <li class="nav-item">
-            <a class="nav-link" href="/logout">Logout</a>
+	    <a class="nav-link" href="/logout">Logout (signed in as {{profile_link}})</a>
 	  </li>
 	  {% endif %}
 	</ul>
