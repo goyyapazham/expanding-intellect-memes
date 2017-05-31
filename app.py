@@ -4,6 +4,7 @@ from httplib2 import Http
 import json
 import sqliteAttempt #import getStudentInfo
 import login
+from db import imgStrConvert
 
 
 app = Flask(__name__)
@@ -16,7 +17,7 @@ def about():
       #  return render_template('home.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), profile_link = pl)
     #else:
     if login.loggedIn(session):
-        return render_template('home.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), profile_link = login.getEmail())
+        return render_template('home.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), profile_link = login.getEmail(session))
     else:
         return render_template('home.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), profile_link = None)
         
@@ -39,7 +40,7 @@ def gallery():
             ["Elias Milborn", "Rotating Mule"],
             ["Nalanda Sharadjaya", "Gyrating Yak"],
             ["Constantine \"I finished my part of the project\" Athanitis", "Revolving Llama"]
-            ], profile_link = None)
+            ], profile_link = None, image=imgStrConvert.imgToStr("db/randImg.png"))
 
 '''
 @app.route('/login/')
@@ -65,7 +66,7 @@ def authenticate():
         auth_code = request.args.get('code')
         credentials = flow.step2_exchange(auth_code) # This is step two authentication to get the code and store the credentials in a credentials object
         session['credentials'] = credentials.to_json() # Converts the credentials to json and stores it in the session variable
-        return redirect(url_for('about'))
+        return redirect("/?a=lmao")
 
 if __name__ == '__main__':
     app.rebug = True

@@ -5,7 +5,14 @@ from httplib2 import Http
 
 #given a session, returns whethere the user is logged in
 def loggedIn(session):
-    return 'credentials' in session and OAuth2Credentials.from_json(session['credentials']).access_token_expired
+    #print "AHHHHHHHHHHHHHHH"
+    #print "credentials" in session
+    #print "BLAHHH"
+    #print OAuth2Credentials.from_json(session['credentials']).access_token_expired
+    if'credentials' in session:
+        if not OAuth2Credentials.from_json(session['credentials']).access_token_expired:
+            return True
+    return False
 
 
 #given a session, returns the loggedin user's email
