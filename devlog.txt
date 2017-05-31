@@ -1,0 +1,67 @@
+constantineA -- 2017-05-15 14:30
+Added sample code for mongo
+
+nalandaS -- 2017-05-16 14:30
+Added skeleton for app.py
+
+constantineA -- 2017-05-16 14:30
+Customized mongo database to the projects needs
+
+constantineA -- 2017-05-18 23:00
+Transfered mongo work to sqlite
+
+constantineA -- 2017-05-18 23:00
+Transfered mongo work to sqlite
+
+eliasM -- 2017-05-19 14:30
+Researched google-signin through javascript
+
+constantineA -- 2017-05-20 00:00
+Added python files to easily interact with sqlite databases
+
+eliasM -- 2017-05-21 21:30
+Tested google-signin through javascript
+Tests failed because the requests could not be made without hosting the website on a finalized domain
+
+nalandaS -- 2017-05-21 22:00
+Fleshed out app.py
+Modified server-database interaction
+
+sebastianC -- 2017-05-22 00:00
+Added homepage html
+Modified app.py to better interact with home.html
+Fixed minor issues in sqliteAttempt.py
+
+constantineA -- 2017-05-22 01:00
+Modified home.html to demonstrate info about sqlite tables
+
+sebastianC -- 2017-05-23 14:00
+Added gallery route and gallery html file
+Modified home.html to be an about page
+Modified app.py to better communicate with the html files
+
+eliasM -- 2017-05-24 14:30
+Researched oAuth google-signin through python used Rodda's  sample code as an example
+
+sebastianC -- 2017-05-25 14:00
+Improved gallery so that it better reflects the desired layout
+
+eliasM -- 2017-05-25 14:30
+Began implementing oauth google login through app.py
+
+eliasM -- 2017-05-25 21:30
+Implemented oauth google login through app.py
+
+constantineA -- 2017-05-26 14:30
+Added functionality for a gallery database to store all galleries
+
+sebastianC  -- 2017-05-26 14:30
+Added login/logout to the navbar
+
+constantineA -- 2017-05-30 14:30
+Improved string to image conversion for database
+
+sebastianC  -- 2017-05-30 14:45
+Gallery now displays images from database
+Fixed bugs in login.py and home.html files
+
