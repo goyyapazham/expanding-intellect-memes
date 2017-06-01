@@ -23,24 +23,7 @@ def about():
         
 @app.route("/gallery")
 def gallery():
-    return render_template('gallery.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), submissions = [
-            ["Sebastian Cain", "Spinning Donkey"],
-            ["Elias Milborn", "Rotating Mule"],
-            ["Nalanda Sharadjaya", "Gyrating Yak"],
-            ["Constantine \"I finished my part of the project\" Athanitis", "Revolving Llama"],
-            ["Sebastian Cain", "Spinning Donkey"],
-            ["Elias Milborn", "Rotating Mule"],
-            ["Nalanda Sharadjaya", "Gyrating Yak"],
-            ["Constantine \"I finished my part of the project\" Athanitis", "Revolving Llama"],
-            ["Sebastian Cain", "Spinning Donkey"],
-            ["Elias Milborn", "Rotating Mule"],
-            ["Nalanda Sharadjaya", "Gyrating Yak"],
-            ["Constantine \"I finished my part of the project\" Athanitis", "Revolving Llama"],
-            ["Sebastian Cain", "Spinning Donkey"],
-            ["Elias Milborn", "Rotating Mule"],
-            ["Nalanda Sharadjaya", "Gyrating Yak"],
-            ["Constantine \"I finished my part of the project\" Athanitis", "Revolving Llama"]
-            ], profile_link = None, image=imgStrConvert.imgToStr("db/giphy.gif"))
+    return render_template('gallery.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), submissions = [], profile_link = None, image=imgStrConvert.imgToStr("db/giphy.gif"))
 
 '''
 @app.route('/login/')

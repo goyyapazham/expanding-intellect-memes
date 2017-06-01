@@ -126,8 +126,6 @@ def addUpvotes(studentID, aNum, upvoteNum):
     c.execute(add)
     db.commit()
 
-
-
 #GET FUNCTIONS....input is studentID and assignment number. returns the rest of the info
 
 def getName(sID):
@@ -191,6 +189,8 @@ def getAllSubmissionsFromGallery(galleryNum):
     c.execute(display)
     return c.fetchall()
 
+print getAllSubmissionsFromGallery(1)
+
 def addGallery(galleryTitle):
     insert = "INSERT INTO galleries VALUES('%s', NULL)"%(galleryTitle)
     print "added to gallery table"
@@ -220,5 +220,5 @@ def delGallery(galleryTitle):
 #print getAllSubmissionsFromGallery(1)
 
 #print getAllGalleries()
-delGallery("gallery 2")
-print getAllGalleries()
+#delGallery("gallery 2")
+#print getAllGalleries()
