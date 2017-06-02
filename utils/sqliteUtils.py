@@ -33,6 +33,7 @@ def getYear(sID):
     q = "SELECT year FROM students WHERE id = '%s'"%(sID)
     return c.execute(q).fetchone()[0]
 
+
 ## GALLERIES/ASSIGNMENTS
 
 #create galleries table (only use once!)
@@ -62,18 +63,20 @@ def addSubmission(gID, title, sID, img, script, time):
 
 ## RETURN DICTIONARIES
 
-#get all assignments
-def getAllAssignments():
+#get all galleries
+#assignments = galleries
+#changed the naming for easier understanding
+def getAllGalleries():
     assignments = []
     for assignment in c.execute("SELECT * FROM galleries").fetchall():
-        assignments += [ {"name": str(assignment[0]), "id": assignment[1]} ]
+        assignments += [ {"galleryName": str(assignment[0]), "gID": assignment[1]} ]
     return assignments
     
-#get all submissions for an assignment
+#get all submissions for a given gallery
 def getAllSubmissions(gID):
     subs = []
     for sub in c.execute("SELECT * FROM submissions WHERE galleryID = %d"%(gID)).fetchall():
-        subs += [ {"gID": sub[0], "title": str(sub[1]), "sID": str(sub[2]), "img": str(sub[3]), "script": str(sub[4]), "time": str(sub[5])} ]
+        subs += [ {"gID": sub[0], "title": str(sub[1]), "sID": str(sub[2]), "imgTextData": str(sub[3]), "script": str(sub[4]), "time": str(sub[5])} ]
     return subs
 
 #get all submissions from a particular student
@@ -83,6 +86,15 @@ def getAllWork(sID):
         work += [ {"gID": sub[0], "title": str(sub[1]), "sID": str(sub[2]), "img": str(sub[3]), "script": str(sub[4]), "time": str(sub[5])} ]
     return work
 
+#get student Info from a given student id
+def getStudentInfo(sID):
+    studentInfo = []
+    for student in c.execute("SELECT * FROM students WHERE id = '%s'"%(sID)).fetchall():
+        studentInfo += [ {"displayName": student[0], "year": student[2]}]
+    return studentInfo
+
+#SETTING UP SAMPLE DATABASES WITH INFO
+'''
 createStudents()
 createGalleries()
 createSubmissions()
@@ -103,11 +115,21 @@ addSubmission(getAssignmentID("Square"), "My Square", "cathanitis", "image txt",
 addSubmission(getAssignmentID("Square"), "Square!!", "scain", "image txt", "script txt", "TIME")
 addSubmission(getAssignmentID("Square"), "Square :O", "emilborn", "image txt", "script txt", "TIME")
 addSubmission(getAssignmentID("Square"), "Square", "nsharadjaya", "image txt", "script txt", "TIME")
-
-print getAllAssignments()
+'''
+print getAllGalleries()
+print "----------------------------"
 print getAllSubmissions(1)
+print "----------------------------"
 print getAllSubmissions(2)
+print "----------------------------"
 print getAllWork("cathanitis")
+print "----------------------------"
 print getAllWork("scain")
+print "----------------------------"
 print getAllWork("emilborn")
+print "----------------------------"
 print getAllWork("nsharadjaya")
+print "----------------------------"
+print getStudentInfo("scain")
+print "----------------------------"
+print getStudentInfo("emilborn")
