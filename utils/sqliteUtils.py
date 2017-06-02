@@ -42,7 +42,7 @@ def createGalleries():
 
 #create submissions table (only use once!)
 def createSubmissions():
-    c.execute("CREATE TABLE IF NOT EXISTS submissions (galleryID INTEGER, title TEXT, sID TEXT, imageData TEXT, script TEXT, time TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS submissions (galleryID INTEGER, title TEXT, sID TEXT, imageData TEXT, miniImageData TEXT, script TEXT, time TEXT)")
 
 #add assignment (to galleries table)
 def addAssignment(title):
@@ -56,8 +56,8 @@ def getAssignmentID(title):
     return c.execute(q).fetchone()[0]
 
 #add submission (to submissions table)
-def addSubmission(gID, title, sID, img, script, time):
-    q = "INSERT INTO submissions VALUES (%d, '%s', '%s', '%s', '%s', '%s')"%(gID, title, sID, img, script, time)
+def addSubmission(gID, title, sID, img, mini, script, time):
+    q = "INSERT INTO submissions VALUES (%d, '%s', '%s', '%s', '%s', '%s', '%s')"%(gID, title, sID, img, mini, script, time)
     c.execute(q)
     db.commit()
 
@@ -76,7 +76,7 @@ def getAllGalleries():
 def getAllSubmissions(gID):
     subs = []
     for sub in c.execute("SELECT * FROM submissions WHERE galleryID = %d"%(gID)).fetchall():
-        subs += [ {"gID": sub[0], "title": str(sub[1]), "sID": str(sub[2]), "imgTextData": str(sub[3]), "script": str(sub[4]), "time": str(sub[5])} ]
+        subs += [ {"gID": sub[0], "title": str(sub[1]), "sID": str(sub[2]), "imgTextData": str(sub[3]), "miniImageTextData": str(sub[4]), "script": str(sub[5]), "time": str(sub[6])} ]
     return subs
 
 #get all submissions from a particular student
@@ -107,14 +107,14 @@ addStudent("Nalanda Sharadjaya", "5678pass", 2017, "nsharadjaya")
 addAssignment("Circle")
 addAssignment("Square")
 
-addSubmission(getAssignmentID("Circle"), "My Circle", "cathanitis", "image txt", "script txt", "TIME")
-addSubmission(getAssignmentID("Circle"), "Circle!!", "scain", "image txt", "script txt", "TIME")
-addSubmission(getAssignmentID("Circle"), "Circle :O", "emilborn", "image txt", "script txt", "TIME")
-addSubmission(getAssignmentID("Circle"), "Circle", "nsharadjaya", "image txt", "script txt", "TIME")
-addSubmission(getAssignmentID("Square"), "My Square", "cathanitis", "image txt", "script txt", "TIME")
-addSubmission(getAssignmentID("Square"), "Square!!", "scain", "image txt", "script txt", "TIME")
-addSubmission(getAssignmentID("Square"), "Square :O", "emilborn", "image txt", "script txt", "TIME")
-addSubmission(getAssignmentID("Square"), "Square", "nsharadjaya", "image txt", "script txt", "TIME")
+addSubmission(getAssignmentID("Circle"), "My Circle", "cathanitis", "image txt","miniImage text", "script txt", "TIME")
+addSubmission(getAssignmentID("Circle"), "Circle!!", "scain", "image txt","miniImage text", "script txt", "TIME")
+addSubmission(getAssignmentID("Circle"), "Circle :O", "emilborn", "image txt","mini image text", "script txt", "TIME")
+addSubmission(getAssignmentID("Circle"), "Circle", "nsharadjaya", "image txt", "miniimage text", "script txt", "TIME")
+addSubmission(getAssignmentID("Square"), "My Square", "cathanitis", "image txt","mini image text", "script txt", "TIME")
+addSubmission(getAssignmentID("Square"), "Square!!", "scain", "image txt","mini image text", "script txt", "TIME")
+addSubmission(getAssignmentID("Square"), "Square :O", "emilborn", "image txt","mini image text", "script txt", "TIME")
+addSubmission(getAssignmentID("Square"), "Square", "nsharadjaya", "image txt","miniImage text", "script txt", "TIME")
 '''
 print getAllGalleries()
 print "----------------------------"
@@ -133,3 +133,4 @@ print "----------------------------"
 print getStudentInfo("scain")
 print "----------------------------"
 print getStudentInfo("emilborn")
+
