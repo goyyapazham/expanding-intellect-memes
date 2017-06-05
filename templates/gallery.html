@@ -43,7 +43,7 @@
               Galleries
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	          {% for gallery in assignments %}
+	          {% for gallery in galleries %}
               <a class="dropdown-item" href="/gallery/{{gallery.gID}}">{{gallery.galleryName}}</a>
 	          {% endfor %}
 	        </div>
@@ -79,18 +79,11 @@
 	  </div>
 	</div>
 	{% endfor %}
-      </div>
+      </div>      
       <p>
-	<u>Students Table</u>
-	{% for student in students %}
-	<li>{{student}}</li>
-	{% endfor %}
-      </p>
-      
-      <p>
-	<u>Assignment Table</u>
-	{% for assignment in assignments %}
-	<li>{{assignment}}</li>
+	<u>Submissions Table</u>
+	{% for submission in submissions %}
+	<li>{{submission}}</li>
 	{% endfor %}
       </p>
     </div>

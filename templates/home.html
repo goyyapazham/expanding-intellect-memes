@@ -33,7 +33,7 @@
               Galleries
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	      {% for gallery in assignments %}
+	      {% for gallery in galleries %}
               <a class="dropdown-item" href="/gallery/{{gallery.gID}}">{{gallery.galleryName}}</a>
 	      {% endfor %}
 	    </div>

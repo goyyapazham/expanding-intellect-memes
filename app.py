@@ -17,15 +17,15 @@ def about():
     #else:
     print sqliteUtils.getAllGalleries()
     if login.loggedIn(session):
-        return render_template('home.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.getAllGalleries(), profile_link = login.getEmail(session).replace('@stuy.edu',''))
+        return render_template('home.html', galleries = sqliteUtils.getAllGalleries(), profile_link = login.getEmail(session).replace('@stuy.edu',''))
     else:
-        return render_template('home.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.getAllGalleries(), profile_link = None)
+        return render_template('home.html', galleries = sqliteUtils.getAllGalleries(), profile_link = None)
         
 @app.route("/gallery/<gID>")
 def gallery(gID):
     gID = int(gID)
     print sqliteUtils.getAllSubmissions(gID)
-    return render_template('gallery.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.getAllGalleries(), submissions = [], profile_link = None)
+    return render_template('gallery.html', galleries = sqliteUtils.getAllGalleries(), submissions = sqliteUtils.getAllSubmissions(gID), profile_link = None)
 
 '''
 @app.route('/login/')

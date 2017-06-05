@@ -43,7 +43,7 @@ def createGalleries():
     
 #create submissions table (only use once!)
 def createSubmissions():
-    c.execute("CREATE TABLE IF NOT EXISTS submissions (galleryID INTEGER, title TEXT, sID TEXT, imageData TEXT, miniImageData TEXT, script TEXT, time TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS submissions (galleryID INTEGER, title TEXT, sID TEXT, imagePath TEXT, miniImagePath TEXT, script TEXT, time TEXT)")
     db.commit()
     
 #add assignment (to galleries table)
@@ -78,7 +78,7 @@ def getAllGalleries():
 def getAllSubmissions(gID):
     subs = []
     for sub in c.execute("SELECT * FROM submissions WHERE galleryID = %d"%(gID)).fetchall():
-        subs += [ {"gID": sub[0], "title": str(sub[1]), "sID": str(sub[2]), "imgTextData": str(sub[3]), "miniImageTextData": str(sub[4]), "script": str(sub[5]), "time": str(sub[6])} ]
+        subs += [ {"gID": sub[0], "title": str(sub[1]), "sID": str(sub[2]), "imgPath": str(sub[3]), "miniImagePath": str(sub[4]), "script": str(sub[5]), "time": str(sub[6])} ]
     return subs
 
 #get all submissions from a particular student
