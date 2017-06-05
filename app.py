@@ -25,7 +25,7 @@ def about():
 def gallery(gID):
     gID = int(gID)
     print sqliteUtils.getAllSubmissions(gID)
-    return render_template('gallery.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.getAllSubmissions(gID), submissions = [], profile_link = None)
+    return render_template('gallery.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.getAllGalleries(), submissions = [], profile_link = None)
 
 '''
 @app.route('/login/')
