@@ -23,8 +23,12 @@ def about():
         
 @app.route("/gallery")
 def gallery():
-    return render_template('gallery.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), submissions = [], profile_link = None, image=imgStrConvert.imgToStr("db/giphy.gif"))
+    return render_template('gallery.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), submissions = [], profile_link = None, image=None)
 
+@app.route("/upload", methods = ['POST'])
+def upload():
+    file = request.files['file']
+    #do shit
 '''
 @app.route('/login/')
 def login():

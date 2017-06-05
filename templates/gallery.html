@@ -63,8 +63,38 @@
       </div>
     </nav>
 
-    <div class="container">
-      <a href="#upload"><button type="button" class="btn btn-primary btn-lg btn-block active">Upload Submission</button></a>
+    <div class="container text-center">
+      <!--<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-lg active">Upload Submission</button>-->
+      <br><br>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" align="center">Upload Submission</button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+	    <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Upload Submission</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+              </button>
+	    </div>
+            <form method='POST' action="/upload" enctype="multipart/form-data">
+	      <div class="modal-body">
+		<div class="form-group">
+		  Choose Image:<br> <input type="file" name="file" class="form-control" required><br><br>
+		  Submission Title:<br> <input type="text" name="filename" class="form-control" required><br><br>
+		  <label for="exampleTextarea">Script to Generate Image: (Optional)</label>
+		  <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+		  <button type="submit" class="btn btn-primary">Submit</button>
+		</div>
+	      </div>
+	    </form>
+	  </div>
+	</div>
+      </div>
       <div class="card-columns">
 	{% for s in submissions %}
 	<script>console.log("submission");</script>
@@ -79,7 +109,11 @@
 	  </div>
 	</div>
 	{% endfor %}
-      </div>
+      </div><br><br>
+    {% if submissions|length == 0%}
+    <h3>There are no submissions yet</h3>
+    {% endif %}
+      <!--
       <p>
 	<u>Students Table</u>
 	{% for student in students %}
@@ -94,6 +128,7 @@
 	{% endfor %}
       </p>
     </div>
+-->
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
