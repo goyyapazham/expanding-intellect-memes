@@ -33,9 +33,9 @@
               Galleries
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="/gallery">Gallery 1</a>
-              <a class="dropdown-item" href="/gallery">Gallery 2</a>
-              <a class="dropdown-item" href="/gallery">Gallery 3</a>
+	      {% for gallery in galleries %}
+              <a class="dropdown-item" href="/gallery/{{gallery.gID}}">{{gallery.galleryName}}</a>
+	      {% endfor %}
 	    </div>
 	  </li>
 	</ul>
