@@ -21,10 +21,11 @@ def about():
     else:
         return render_template('home.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.getAllGalleries(), profile_link = None)
         
-@app.route("/gallery/<id>")
-def gallery(id):
-    print sqlite.getAllSubmissions(id)
-    return render_template('gallery.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.getAllSubmissions(id), submissions = [], profile_link = None, image=imgStrConvert.imgToStr("db/giphy.gif"))
+@app.route("/gallery/<gID>")
+def gallery(gID):
+    gID = int(gID)
+    print sqliteUtils.getAllSubmissions(gID)
+    return render_template('gallery.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.getAllSubmissions(gID), submissions = [], profile_link = None)
 
 '''
 @app.route('/login/')
