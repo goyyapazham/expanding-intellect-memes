@@ -23,6 +23,7 @@ def about():
         
 @app.route("/gallery/<id>")
 def gallery(id):
+    print sqlite.getAllSubmissions(id)
     return render_template('gallery.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.getAllSubmissions(id), submissions = [], profile_link = None, image=imgStrConvert.imgToStr("db/giphy.gif"))
 
 '''
