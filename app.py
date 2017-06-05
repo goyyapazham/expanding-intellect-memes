@@ -2,9 +2,8 @@ from flask import Flask, render_template, url_for, request, redirect, session
 from oauth2client.client import flow_from_clientsecrets, OAuth2Credentials
 from httplib2 import Http
 import json
-import sqliteAttempt #import getStudentInfo
-import login
-from db import imgStrConvert
+from utils import sqliteUtils, login, imgStrConvert #import getStudentInfo
+
 
 
 app = Flask(__name__)
@@ -14,26 +13,26 @@ app.secret_key = 'key'
 def about():
     #if session["username"] != None:
      #   pl = "/profile/" + session["username"]
-      #  return render_template('home.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), profile_link = pl)
+      #  return render_template('home.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.displayAllSubmittedAssignments(), profile_link = pl)
     #else:
     if login.loggedIn(session):
-        return render_template('home.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), profile_link = login.getEmail(session).replace('@stuy.edu',''))
+        return render_template('home.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.getAllGalleries(), profile_link = login.getEmail(session).replace('@stuy.edu',''))
     else:
-        return render_template('home.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), profile_link = None)
+        return render_template('home.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.getAllGalleries(), profile_link = None)
         
 @app.route("/gallery")
 def gallery():
-    return render_template('gallery.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), submissions = [], profile_link = None, image=imgStrConvert.imgToStr("db/giphy.gif"))
+    return render_template('gallery.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.displayAllSubmittedAssignments(), submissions = [], profile_link = None, image=imgStrConvert.imgToStr("db/giphy.gif"))
 
 '''
 @app.route('/login/')
 def login():
-    return render_template('login')
+    return render_template('login') 
 
 @app.route('/profile/<id>')
 def profile(id):
-    name = sqliteAttempt.getName(id)
-    year = sqliteAttempt.getYear(id))
+    name = sqliteUtils.getName(id)
+    year = sqliteUtils.getYear(id))
     return render_template('profile.html', name = name, year = year)
 '''
 @app.route('/auth', methods = ['POST', 'GET']) # OAuth authentication route

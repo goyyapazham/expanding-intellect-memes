@@ -1,6 +1,6 @@
 import sqlite3
 
-filename = "data.db"
+filename = "utils/data.db"
 
 db = sqlite3.connect(filename)
 c = db.cursor()
@@ -39,11 +39,13 @@ def getYear(sID):
 #create galleries table (only use once!)
 def createGalleries():
     c.execute("CREATE TABLE IF NOT EXISTS galleries (title TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT)")
-
+    db.commit()
+    
 #create submissions table (only use once!)
 def createSubmissions():
     c.execute("CREATE TABLE IF NOT EXISTS submissions (galleryID INTEGER, title TEXT, sID TEXT, imageData TEXT, miniImageData TEXT, script TEXT, time TEXT)")
-
+    db.commit()
+    
 #add assignment (to galleries table)
 def addAssignment(title):
     q = "INSERT INTO galleries VALUES ('%s', NULL)"%(title)
@@ -93,6 +95,12 @@ def getStudentInfo(sID):
         studentInfo += [ {"displayName": student[0], "year": student[2]}]
     return studentInfo
 
+def getAllStudents():
+    students = []
+    for student in c.execute("SELECT * FROM students").fetchall():
+        students += [{"displayName": student[0], "studentID":student[1], "year": student[2]}]
+    return students
+
 #SETTING UP SAMPLE DATABASES WITH INFO
 '''
 createStudents()
@@ -116,6 +124,7 @@ addSubmission(getAssignmentID("Square"), "Square!!", "scain", "image txt","mini 
 addSubmission(getAssignmentID("Square"), "Square :O", "emilborn", "image txt","mini image text", "script txt", "TIME")
 addSubmission(getAssignmentID("Square"), "Square", "nsharadjaya", "image txt","miniImage text", "script txt", "TIME")
 '''
+'''
 print getAllGalleries()
 print "----------------------------"
 print getAllSubmissions(1)
@@ -134,3 +143,5 @@ print getStudentInfo("scain")
 print "----------------------------"
 print getStudentInfo("emilborn")
 
+
+'''
