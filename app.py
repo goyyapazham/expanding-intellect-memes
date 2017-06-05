@@ -20,9 +20,9 @@ def about():
     else:
         return render_template('home.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.getAllGalleries(), profile_link = None)
         
-@app.route("/gallery")
-def gallery():
-    return render_template('gallery.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.displayAllSubmittedAssignments(), submissions = [], profile_link = None, image=imgStrConvert.imgToStr("db/giphy.gif"))
+@app.route("/gallery/<id>")
+def gallery(id):
+    return render_template('gallery.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.getAllSubmissions(id), submissions = [], profile_link = None, image=imgStrConvert.imgToStr("db/giphy.gif"))
 
 '''
 @app.route('/login/')
