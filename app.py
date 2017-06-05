@@ -15,6 +15,7 @@ def about():
      #   pl = "/profile/" + session["username"]
       #  return render_template('home.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.displayAllSubmittedAssignments(), profile_link = pl)
     #else:
+    print sqliteUtils.getAllGalleries()
     if login.loggedIn(session):
         return render_template('home.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.getAllGalleries(), profile_link = login.getEmail(session).replace('@stuy.edu',''))
     else:
