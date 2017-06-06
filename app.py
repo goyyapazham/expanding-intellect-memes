@@ -46,7 +46,7 @@ def upload(gID):
     imgName = img.filename
     ext = imgName.split(".")[-1]
     baseName = str(int(time.time()*1000))
-    newName = baseName "." + ext
+    newName = baseName + "." + ext
     if ext != "gif" and ext != "png" and ext != "ppm":
         return redirect(url_for("gallery", gID = str(gID), message = "filetype must be ppm, png, or gif"))   
     img.save("Images/" + newName)

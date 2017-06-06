@@ -1,7 +1,7 @@
 import sqlite3, os
 
-#filename = "utils/data.db"
-filename = "data.db"
+filename = "utils/data.db"
+#filename = "data.db"
 
 db = sqlite3.connect(filename)
 c = db.cursor()
