@@ -106,12 +106,12 @@ def deleteGallery(gID):
     c.execute("DELETE FROM galleries WHERE id = %d"%(gID))
     #deleting the image files first
     for path in c.execute("SELECT imagePath FROM submissions WHERE galleryID = %d"%(gID)).fetchall():
-        print path
-        pathString = "rm static/" + path
+        print path[0]
+        pathString = "rm static/" + path[0]
         os.system(pathString)
     for path in c.execute("SELECT miniImagePath FROM submissions WHERE galleryID = %d"%(gID)).fetchall():
-        print path
-        pathString = "rm static/" + path
+        print path[0]
+        pathString = "rm static/" + path[0]
         os.system(pathString)
     #delete rows from submissions table
     c.execute("DELETE FROM submissions WHERE galleryID = %d"%(gID))
@@ -120,8 +120,6 @@ def deleteGallery(gID):
 
     
 #SETTING UP SAMPLE DATABASES WITH INFO
-
-addAssignment("sebtest")
 '''
 createStudents()
 createGalleries()
