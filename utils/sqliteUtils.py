@@ -141,6 +141,12 @@ addSubmission(getAssignmentID("Square"), "My Square", "cathanitis", "image txt",
 addSubmission(getAssignmentID("Square"), "Square!!", "scain", "image txt","mini image text", "script txt", "TIME")
 addSubmission(getAssignmentID("Square"), "Square :O", "emilborn", "image txt","mini image text", "script txt", "TIME")
 addSubmission(getAssignmentID("Square"), "Square", "nsharadjaya", "image txt","miniImage text", "script txt", "TIME")
+
+addAssignment("Triangle")
+addSubmission(getAssignmentID("Triangle"), "My Triangle", "cathanitis", "image path","miniImage path", "script txt", "TIME")
+addSubmission(getAssignmentID("Triangle"), "Triangle!!", "scain", "image path","miniImage path", "script txt", "TIME")
+addSubmission(getAssignmentID("Triangle"), "Triangle :O", "emilborn", "image path","mini image path", "script txt", "TIME")
+addSubmission(getAssignmentID("Triangle"), "Triangle", "nsharadjaya", "image path", "miniimage path", "script txt", "TIME")
 '''
 '''
 print getAllGalleries()
