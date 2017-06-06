@@ -4,6 +4,7 @@ from httplib2 import Http
 import json
 import time
 from utils import sqliteUtils, login, imgStrConvert #import getStudentInfo
+import wand
 
 
 
@@ -21,7 +22,7 @@ def about(message=""):
     if login.loggedIn(session):
         return render_template('home.html', galleries = sqliteUtils.getAllGalleries(), profile_link = login.getEmail(session).replace('@stuy.edu',''))
     else:
-        return render_template('home.html', galleries = sqliteUtils.getAllGalleries(), profile_link = None)
+        return render_template('home.html', galleries = sqliteUtils.getAllGalleries(), profile_link = None, message = message)
 '''        
 @app.route("/gallery")
 def gallery():
@@ -45,9 +46,13 @@ def upload(gID):
     imgName = img.filename
     ext = imgName.split(".")[-1]
     baseName = str(int(time.time()*1000))
+    newName = "." + ext
     if ext != "gif" and ext != "png" and ext != "ppm":
         return redirect(url_for("gallery", gID = str(gID), message = "filetype must be ppm, png, or gif"))   
-    img.save("Images/" + baseName + "." + ext)
+    img.save("Images/" + newName)
+    icon = wand.Image("Images/" + newName)
+    icon.sample("!128x128")
+    icon.write("Icons/" + baseName + ".png")
     
     return redirect(url_for("gallery", gID = str(gID)))
 '''
@@ -78,7 +83,7 @@ def authenticate():
         print session["credentials"]
         if not login.getEmail(session).endswith('@stuy.edu'):
             session.pop('credentials')
-            return redirect("/")#add code to say reason for failed login
+            return redirect(url_for("about", message="stuy.edu emails only - "))#add code to say reason for failed login
         return redirect("/")
 
 @app.route('/logout')
