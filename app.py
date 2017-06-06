@@ -15,8 +15,6 @@ app.secret_key = 'key'
 @app.route('/')
 @app.route('/<message>')
 def about(message=""):
-    sqliteUtils.deleteGallery(1)
-    sqliteUtils.deleteGallery(2)
     #if session["username"] != None:
      #   pl = "/profile/" + session["username"]
       #  return render_template('home.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.displayAllSubmittedAssignments(), profile_link = pl)
