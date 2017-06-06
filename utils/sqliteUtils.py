@@ -120,6 +120,8 @@ def deleteGallery(gID):
 
     
 #SETTING UP SAMPLE DATABASES WITH INFO
+
+addAssignment("sebtest")
 '''
 createStudents()
 createGalleries()
