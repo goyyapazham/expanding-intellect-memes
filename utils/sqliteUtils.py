@@ -1,6 +1,7 @@
-import sqlite3
+import sqlite3, os
 
-filename = "utils/data.db"
+#filename = "utils/data.db"
+filename = "data.db"
 
 db = sqlite3.connect(filename)
 c = db.cursor()
@@ -101,6 +102,18 @@ def getAllStudents():
         students += [{"displayName": student[0], "studentID":student[1], "year": student[2]}]
     return students
 
+def deleteGallery(gID):
+    c.execute("DELETE FROM galleries WHERE id = %d"%(gID))
+    #deleting the image files first
+    for path in c.execute("SELECT imagePath FROM submissions WHERE galleryID = %d"%(gID)).fetchall():
+        pathString = "rm "+path
+        os.system(pathString)
+    #delete rows from submissions table
+    c.execute("DELETE FROM submissions WHERE galleryID = %d"%(gID))
+    db.commit()
+
+
+    
 #SETTING UP SAMPLE DATABASES WITH INFO
 '''
 createStudents()
