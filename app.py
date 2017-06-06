@@ -4,7 +4,7 @@ from httplib2 import Http
 import json
 import time
 from utils import sqliteUtils, login, imgStrConvert #import getStudentInfo
-import wand
+from PIL import Image
 
 
 
@@ -50,10 +50,10 @@ def upload(gID):
     if ext != "gif" and ext != "png" and ext != "ppm":
         return redirect(url_for("gallery", gID = str(gID), message = "filetype must be ppm, png, or gif"))   
     img.save("Images/" + newName)
-    icon = wand.Image("Images/" + newName)
-    icon.sample("!128x128")
-    icon.write("Icons/" + baseName + ".png")
-    
+    icon = Image.open("Images/" + newName)
+    iconSize = (100, 100)
+    icon.thumbnail(iconSize)
+    icon.save("Icons/" + baseName + ".png")
     return redirect(url_for("gallery", gID = str(gID)))
 '''
 @app.route('/login/')
