@@ -5,6 +5,7 @@ import json
 import time
 from utils import sqliteUtils, login, imgStrConvert #import getStudentInfo
 from PIL import Image
+import datetime
 
 
 
@@ -37,6 +38,8 @@ def gallery(gID,message=""):
 
 @app.route("/upload/<gID>", methods = ['POST', 'GET'])
 def upload(gID):
+    if not login.loggedIn(session):
+        return redirect(url_for("gallery", gID = str(gID), message = "must be logged in"))
     gID = int(gID)
     title = request.form['filename']
     script = ""
@@ -46,14 +49,16 @@ def upload(gID):
     imgName = img.filename
     ext = imgName.split(".")[-1]
     baseName = str(int(time.time()*1000))
-    newName = baseName "." + ext
+    newName = baseName + "." + ext
     if ext != "gif" and ext != "png" and ext != "ppm":
         return redirect(url_for("gallery", gID = str(gID), message = "filetype must be ppm, png, or gif"))   
     img.save("Images/" + newName)
     icon = Image.open("Images/" + newName)
     iconSize = (100, 100)
     icon.thumbnail(iconSize)
-    icon.save("Icons/" + baseName + ".png")
+    iconName = baseName + ".png"
+    icon.save("Icons/" + iconName)
+    sqliteUtils.addSubmission(gID, title, login.getEmail(session).replace("@stuy.edu",""), "Images/" + newName, "Icons/" + iconName, script, str(datetime.datetime))
     return redirect(url_for("gallery", gID = str(gID)))
 '''
 @app.route('/login/')
