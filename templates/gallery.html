@@ -65,7 +65,7 @@
 
     <div class="container text-center">
       <!--<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-lg active">Upload Submission</button>-->
-      <br><br>
+      <br>{{message}}<br>
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" align="center">Upload Submission</button>
 
       <!-- Modal -->
@@ -78,13 +78,13 @@
 		<span aria-hidden="true">&times;</span>
               </button>
 	    </div>
-            <form method='POST' action="/upload" enctype="multipart/form-data">
+            <form method='POST' action="/upload/{{gID}}" enctype="multipart/form-data">
 	      <div class="modal-body">
 		<div class="form-group">
 		  Choose Image:<br> <input type="file" name="file" class="form-control" required><br><br>
 		  Submission Title:<br> <input type="text" name="filename" class="form-control" required><br><br>
 		  <label for="exampleTextarea">Script to Generate Image: (Optional)</label>
-		  <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+		  <textarea class="form-control" id="exampleTextarea" name="script" rows="3"></textarea>
 		</div>
 		<div class="modal-footer">
 		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>

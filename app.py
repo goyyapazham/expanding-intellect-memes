@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, request, redirect, session
 from oauth2client.client import flow_from_clientsecrets, OAuth2Credentials
 from httplib2 import Http
 import json
+import time
 from utils import sqliteUtils, login, imgStrConvert #import getStudentInfo
 
 
@@ -10,7 +11,8 @@ app = Flask(__name__)
 app.secret_key = 'key'
 
 @app.route('/')
-def about():
+@app.route('/<message>')
+def about(message=""):
     #if session["username"] != None:
      #   pl = "/profile/" + session["username"]
       #  return render_template('home.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.displayAllSubmittedAssignments(), profile_link = pl)
@@ -26,15 +28,28 @@ def gallery():
     return render_template('gallery.html', students = sqliteAttempt.displayStudentInfo(), assignments = sqliteAttempt.displayAllSubmittedAssignments(), submissions = [], profile_link = None, image=None)
 '''
 @app.route("/gallery/<gID>")
-def gallery(gID):
+@app.route("/gallery/<gID>/<message>")
+def gallery(gID,message=""):
     gID = int(gID)
     print sqliteUtils.getAllSubmissions(gID)
-    return render_template('gallery.html', galleries = sqliteUtils.getAllGalleries(), submissions = sqliteUtils.getAllSubmissions(gID), profile_link = None)
+    return render_template('gallery.html', galleries = sqliteUtils.getAllGalleries(), submissions = sqliteUtils.getAllSubmissions(gID), profile_link = None, gID = gID, message=message)
 
-@app.route("/upload", methods = ['POST'])
-def upload():
-    file = request.files['file']
-    #do shit
+@app.route("/upload/<gID>", methods = ['POST', 'GET'])
+def upload(gID):
+    gID = int(gID)
+    title = request.form['filename']
+    script = ""
+    if 'script' in request.form:
+        script = request.form['script']
+    img = request.files['file']
+    imgName = img.filename
+    ext = imgName.split(".")[-1]
+    baseName = str(int(time.time()*1000))
+    if ext != "gif" and ext != "png" and ext != "ppm":
+        return redirect(url_for("gallery", gID = str(gID), message = "filetype must be ppm, png, or gif"))   
+    img.save("Images/" + baseName + "." + ext)
+    
+    return redirect(url_for("gallery", gID = str(gID)))
 '''
 @app.route('/login/')
 def login():
