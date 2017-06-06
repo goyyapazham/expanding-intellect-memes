@@ -48,6 +48,16 @@
 	          {% endfor %}
 	        </div>
 	  </li>
+	  {% if admin %}
+	  <form class="navbar-form navbar-left" action="/newGallery" method="post" >
+	    <div class="input-group" >
+	      <input name="gName" type="text" class="form-control" placeholder="New Gallery Name">
+	      <span class="input-group-btn">
+		<button class="btn btn-default" type="submit">+</button>
+	      </span>
+	    </div>
+	  </form>
+	  {% endif %}
 	</ul>
 	<ul class="navbar-nav ml-auto">
 	  {% if profile_link == None %}

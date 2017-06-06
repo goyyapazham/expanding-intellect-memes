@@ -3,7 +3,7 @@ import json # Json library to handle replies
 from httplib2 import Http
 
 
-ADMINS = ["emilborn@stuy.edu", "dw@stuycs.org"]
+ADMINS = ["emilborn@stuy.edu", "dw@stuycs.org", "nalandasharadjaya@gmail.com", "eliasmilborn@gmail.com"]
 
 #given a session, returns whethere the user is logged in
 def loggedIn(session):
