@@ -8,7 +8,6 @@ from PIL import Image
 import datetime
 
 
-
 app = Flask(__name__)
 app.secret_key = 'key'
 
@@ -20,10 +19,12 @@ def about(message=""):
       #  return render_template('home.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.displayAllSubmittedAssignments(), profile_link = pl)
     #else:
     print sqliteUtils.getAllGalleries()
-    if login.loggedIn(session):
-        return render_template('home.html', galleries = sqliteUtils.getAllGalleries(), profile_link = login.getEmail(session).replace('@stuy.edu',''))
+    if login.isAdmin(session):
+        return render_template('home.html', galleries = sqliteUtils.getAllGalleries(), profile_link = login.getEmail(session).replace('@stuy.edu',''), admin = True)
+    elif login.loggedIn(session):
+        return render_template('home.html', galleries = sqliteUtils.getAllGalleries(), profile_link = login.getEmail(session).replace('@stuy.edu',''), admin = False)
     else:
-        return render_template('home.html', galleries = sqliteUtils.getAllGalleries(), profile_link = None, message = message)
+        return render_template('home.html', galleries = sqliteUtils.getAllGalleries(), profile_link = None, message = message, admin = False)
 
 
 
@@ -38,10 +39,12 @@ def gallery():
 def gallery(gID,message=""):
     gID = int(gID)
     print sqliteUtils.getAllSubmissions(gID)
-    if login.loggedIn(session):
-         return render_template('gallery.html', galleries = sqliteUtils.getAllGalleries(), submissions = sqliteUtils.getAllSubmissions(gID), profile_link = login.getEmail(session).replace('@stuy.edu',''), gID = gID, message=message)
+    if login.isAdmin(session):
+        return render_template('gallery.html', galleries = sqliteUtils.getAllGalleries(), submissions = sqliteUtils.getAllSubmissions(gID), profile_link = login.getEmail(session).replace('@stuy.edu',''), gID = gID, message=message, admin = True)
+    elif login.loggedIn(session):
+         return render_template('gallery.html', galleries = sqliteUtils.getAllGalleries(), submissions = sqliteUtils.getAllSubmissions(gID), profile_link = login.getEmail(session).replace('@stuy.edu',''), gID = gID, message=message, admin = False)
     else:
-        return render_template('gallery.html', galleries = sqliteUtils.getAllGalleries(), submissions = sqliteUtils.getAllSubmissions(gID), profile_link = None, gID = gID, message=message)
+        return render_template('gallery.html', galleries = sqliteUtils.getAllGalleries(), submissions = sqliteUtils.getAllSubmissions(gID), profile_link = None, gID = gID, message=message, admin = False)
 
 
 
@@ -103,7 +106,7 @@ def authenticate():
         session['credentials'] = credentials.to_json() # Converts the credentials to json and stores it in the session variable
         print "BLAHHHHHHH"
         print session["credentials"]
-        if not login.getEmail(session).endswith('@stuy.edu'):
+        if not login.getEmail(session).endswith('@stuy.edu') and not login.isAdmin(session):
             session.pop('credentials')
             return redirect(url_for("about", message="stuy.edu emails only - "))#add code to say reason for failed login
         return redirect("/")

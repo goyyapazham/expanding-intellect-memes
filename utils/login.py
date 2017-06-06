@@ -3,6 +3,8 @@ import json # Json library to handle replies
 from httplib2 import Http
 
 
+ADMINS = ["emilborn@stuy.edu", "dw@stuycs.org"]
+
 #given a session, returns whethere the user is logged in
 def loggedIn(session):
     #print "AHHHHHHHHHHHHHHH"
@@ -24,3 +26,6 @@ def getEmail(session):
         content = json.loads(content)
         return content['email']
     return False
+
+def isAdmin(session):
+    return getEmail(session) in ADMINS
