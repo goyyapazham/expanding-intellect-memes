@@ -70,3 +70,44 @@ Logout works
 If you login with a non-stuy.edu email you are automatically logged out
 Profile link more appropriately reflects the desired link
 
+sebastianC -- 2017-06-01 14:45
+Improved the gallery page
+
+nalandaS -- 2017-06-02 08:55
+Rearranged file structure
+Restructured the databases
+
+constantineS -- 2017-06-03 14:45
+Improved python interraction with databases
+
+constantineS -- 2017-06-05 14:45
+Fixed minor issues
+Improved python interraction with databases
+
+eliasM -- 2017-06-05 16:00
+fixed gallery navbar and gallery page
+
+constantineS -- 2017-06-05 16:45
+Renamed variables 
+Added test images
+
+sebastianC -- 2017-06-05 17:00
+Added form for uploading images
+
+eliasM -- 2017-06-05 23:00
+Implemented uploading
+Fixed several bugs
+Rearranged folder structure of images
+
+
+
+
+
+
+
+
+
+
+
+
+
