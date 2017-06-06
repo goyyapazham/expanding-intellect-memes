@@ -15,6 +15,8 @@ app.secret_key = 'key'
 @app.route('/')
 @app.route('/<message>')
 def about(message=""):
+    sqliteUtils.deleteGallery(1)
+    sqliteUtils.deleteGallery(2)
     #if session["username"] != None:
      #   pl = "/profile/" + session["username"]
       #  return render_template('home.html', students = sqliteUtils.getAllStudents(), assignments = sqliteUtils.displayAllSubmittedAssignments(), profile_link = pl)
@@ -24,6 +26,10 @@ def about(message=""):
         return render_template('home.html', galleries = sqliteUtils.getAllGalleries(), profile_link = login.getEmail(session).replace('@stuy.edu',''))
     else:
         return render_template('home.html', galleries = sqliteUtils.getAllGalleries(), profile_link = None, message = message)
+
+
+
+    
 '''        
 @app.route("/gallery")
 def gallery():
@@ -34,8 +40,16 @@ def gallery():
 def gallery(gID,message=""):
     gID = int(gID)
     print sqliteUtils.getAllSubmissions(gID)
-    return render_template('gallery.html', galleries = sqliteUtils.getAllGalleries(), submissions = sqliteUtils.getAllSubmissions(gID), profile_link = None, gID = gID, message=message)
+    if login.loggedIn(session):
+         return render_template('gallery.html', galleries = sqliteUtils.getAllGalleries(), submissions = sqliteUtils.getAllSubmissions(gID), profile_link = login.getEmail(session).replace('@stuy.edu',''), gID = gID, message=message)
+    else:
+        return render_template('gallery.html', galleries = sqliteUtils.getAllGalleries(), submissions = sqliteUtils.getAllSubmissions(gID), profile_link = None, gID = gID, message=message)
 
+
+
+
+    
+    
 @app.route("/upload/<gID>", methods = ['POST', 'GET'])
 def upload(gID):
     if not login.loggedIn(session):
@@ -48,18 +62,23 @@ def upload(gID):
     img = request.files['file']
     imgName = img.filename
     ext = imgName.split(".")[-1]
+    ext = ext.lower()
     baseName = str(int(time.time()*1000))
     newName = baseName + "." + ext
     if ext != "gif" and ext != "png" and ext != "ppm":
         return redirect(url_for("gallery", gID = str(gID), message = "filetype must be ppm, png, or gif"))   
-    img.save("Images/" + newName)
-    icon = Image.open("Images/" + newName)
-    iconSize = (100, 100)
+    img.save("static/Images/" + newName)
+    icon = Image.open("static/Images/" + newName)
+    iconSize = (250, 250)
     icon.thumbnail(iconSize)
     iconName = baseName + ".png"
-    icon.save("Icons/" + iconName)
-    sqliteUtils.addSubmission(gID, title, login.getEmail(session).replace("@stuy.edu",""), "Images/" + newName, "Icons/" + iconName, script, str(datetime.datetime))
+    icon.save("static/Icons/" + iconName)
+    sqliteUtils.addSubmission(gID, title, login.getEmail(session).replace("@stuy.edu",""), "Images/" + newName, "Icons/" + iconName, script, str(datetime.datetime.now()))
     return redirect(url_for("gallery", gID = str(gID)))
+
+
+
+
 '''
 @app.route('/login/')
 def login():

@@ -106,7 +106,12 @@ def deleteGallery(gID):
     c.execute("DELETE FROM galleries WHERE id = %d"%(gID))
     #deleting the image files first
     for path in c.execute("SELECT imagePath FROM submissions WHERE galleryID = %d"%(gID)).fetchall():
-        pathString = "rm "+path
+        print path
+        pathString = "rm static/" + path
+        os.system(pathString)
+    for path in c.execute("SELECT miniImagePath FROM submissions WHERE galleryID = %d"%(gID)).fetchall():
+        print path
+        pathString = "rm static/" + path
         os.system(pathString)
     #delete rows from submissions table
     c.execute("DELETE FROM submissions WHERE galleryID = %d"%(gID))
