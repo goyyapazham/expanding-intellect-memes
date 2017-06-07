@@ -44,7 +44,7 @@ def createGalleries():
     
 #create submissions table (only use once!)
 def createSubmissions():
-    c.execute("CREATE TABLE IF NOT EXISTS submissions (galleryID INTEGER, title TEXT, sID TEXT, imagePath TEXT, miniImagePath TEXT, script TEXT, time TEXT)")
+    c.execute("CREATE TABLE IF NOT EXISTS submissions (galleryID INTEGER, title TEXT, sID TEXT, imagePath TEXT, miniImagePath TEXT, script TEXT, time TEXT, subID INTEGER PRIMARY KEY AUTOINCREMENT)")
     db.commit()
     
 #add assignment (to galleries table)
@@ -60,7 +60,7 @@ def getAssignmentID(title):
 
 #add submission (to submissions table)
 def addSubmission(gID, title, sID, img, mini, script, time):
-    q = "INSERT INTO submissions VALUES (%d, '%s', '%s', '%s', '%s', '%s', '%s')"%(gID, title, sID, img, mini, script, time)
+    q = "INSERT INTO submissions VALUES (%d, '%s', '%s', '%s', '%s', '%s', '%s', NULL)"%(gID, title, sID, img, mini, script, time)
     c.execute(q)
     db.commit()
 
@@ -79,14 +79,14 @@ def getAllGalleries():
 def getAllSubmissions(gID):
     subs = []
     for sub in c.execute("SELECT * FROM submissions WHERE galleryID = %d"%(gID)).fetchall():
-        subs += [ {"gID": sub[0], "title": str(sub[1]), "sID": str(sub[2]), "imgPath": str(sub[3]), "miniImagePath": str(sub[4]), "script": str(sub[5]), "time": str(sub[6])} ]
+        subs += [ {"gID": sub[0], "title": str(sub[1]), "sID": str(sub[2]), "imgPath": str(sub[3]), "miniImagePath": str(sub[4]), "script": str(sub[5]), "time": str(sub[6]), "subID": str(sub[7])} ]
     return subs
 
 #get all submissions from a particular student
 def getAllWork(sID):
     work = []
     for sub in c.execute("SELECT * FROM submissions WHERE sID = '%s'"%(sID)).fetchall():
-        work += [ {"gID": sub[0], "title": str(sub[1]), "sID": str(sub[2]), "img": str(sub[3]), "script": str(sub[4]), "time": str(sub[5])} ]
+        work += [ {"gID": sub[0], "title": str(sub[1]), "sID": str(sub[2]), "imgPath": str(sub[3]), "miniImagePath": str(sub[4]), "script": str(sub[5]), "time": str(sub[6]), "subID": str(sub[7])} ]
     return work
 
 #get student Info from a given student id
@@ -117,6 +117,12 @@ def deleteGallery(gID):
     c.execute("DELETE FROM submissions WHERE galleryID = %d"%(gID))
     db.commit()
 
+def getSubmission(subID):
+    #should only output one dictionary, because each subID is unique
+    submission = []
+    for sub in c.execute("SELECT * FROM submissions WHERE subID = '%s'"%(subID)).fetchall():
+        submission +=  [ {"gID": sub[0], "title": str(sub[1]), "sID": str(sub[2]), "imgPath": str(sub[3]), "miniImagePath": str(sub[4]), "script": str(sub[5]), "time": str(sub[6]), "subID": str(sub[7])} ]
+    return submission
 
     
 #SETTING UP SAMPLE DATABASES WITH INFO
