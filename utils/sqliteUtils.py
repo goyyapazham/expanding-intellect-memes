@@ -105,12 +105,19 @@ def getAllStudents():
 def deleteGallery(gID):
     c.execute("DELETE FROM galleries WHERE id = %d"%(gID))
     #deleting the image files first
-    for path in c.execute("SELECT imagePath FROM submissions WHERE galleryID = %d"%(gID)).fetchall():
-        pathString = "rm static/" + path[0]
-        os.system(pathString)
-    for path in c.execute("SELECT miniImagePath FROM submissions WHERE galleryID = %d"%(gID)).fetchall():
-        pathString = "rm static/" + path[0]
-        os.system(pathString)
+    try:
+        for path in c.execute("SELECT imagePath FROM submissions WHERE galleryID = %d"%(gID)).fetchall():
+            pathString = "rm static/" + path[0]
+            os.system(pathString)
+    except:
+        pass
+    try:
+        for path in c.execute("SELECT miniImagePath FROM submissions WHERE galleryID = %d"%(gID)).fetchall():
+            pathString = "rm static/" + path[0]
+            os.system(pathString)
+    except:
+        pass
+    
     c.execute("DELETE FROM submissions WHERE galleryID = %d"%(gID))
     db.commit()
 
