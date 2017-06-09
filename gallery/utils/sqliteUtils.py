@@ -1,6 +1,11 @@
 import sqlite3, os
 
-filename = "utils/data.db"
+DIR = os.path.dirname(__file__) or '.'
+DIR += '/'
+
+filename = DIR + "data.db"
+
+print filename
 #filename = "data.db"
 
 db = sqlite3.connect(filename)
