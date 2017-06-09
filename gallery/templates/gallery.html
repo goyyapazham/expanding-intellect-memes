@@ -31,12 +31,13 @@
 	  <li class="nav-item active">
             <a class="nav-link" href="#">Home <!--<span class="sr-only">(current)</span>--></a>
 	  </li>
+      <!--
 	  {% if profile_link != None %}
 	  <li class="nav-item">
             <a class="nav-link" href="/profile/{{profile_link}}">My Profile</a>
 	  </li>
 	  {% endif %}
-
+      -->
 
 	  <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -143,7 +144,7 @@
 		<img src="/static/{{s['imgPath']}}">
 
 		{% if s["script"] != "" %}
-		<pre><code>{{s["script"]}}</code></pre>
+		<pre style="text-align:justify"><code>{{s["script"]}}</code></pre>
 		{% endif %}
 	      </div>
 	      <div class="modal-footer">
