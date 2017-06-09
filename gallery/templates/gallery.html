@@ -77,7 +77,10 @@
       <!--<button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-primary btn-lg active">Upload Submission</button>-->
       <br>{{message}}<br>
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" align="center">Upload Submission</button>
-
+      {% if admin %}
+      <br>
+      <a href="/removeGallery/{{gID}}" class="btn btn-primary" role="button"> Delete Gallery </a>
+      {% endif %}
       <!-- Modal -->
       <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 	<div class="modal-dialog" role="document">
