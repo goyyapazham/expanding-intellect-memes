@@ -8,34 +8,47 @@ filename = DIR + "data.db"
 print filename
 #filename = "data.db"
 
-db = sqlite3.connect(filename)
-c = db.cursor()
 
 ## STUDENTS TABLE
 
 #create students table (only use once!)
 def createStudents():
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     c.execute("CREATE TABLE IF NOT EXISTS students (name TEXT, password TEXT, year INTEGER, id TEXT)")
 
 #add student to table
 def addStudent(name, password, year, sID):
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     q = "INSERT INTO students VALUES ('%s','%s',%d,'%s')"%(name, password, year, sID)
     c.execute(q)
     db.commit()
 
 #remove student from table
 def deleteStudent(sID):
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     q = "DELETE FROM students WHERE id = '%s'"%(sID)
     c.execute(q)
     db.commit()
 
 #get name of student w sID
 def getName(sID):
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     q = "SELECT name FROM students WHERE id = '%s'"%(sID)
     return c.execute(q).fetchone()[0]
 
 #get yr of student w sID
 def getYear(sID):
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     q = "SELECT year FROM students WHERE id = '%s'"%(sID)
     return c.execute(q).fetchone()[0]
 
@@ -44,27 +57,42 @@ def getYear(sID):
 
 #create galleries table (only use once!)
 def createGalleries():
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     c.execute("CREATE TABLE IF NOT EXISTS galleries (title TEXT, id INTEGER PRIMARY KEY AUTOINCREMENT)")
     db.commit()
     
 #create submissions table (only use once!)
 def createSubmissions():
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     c.execute("CREATE TABLE IF NOT EXISTS submissions (galleryID INTEGER, title TEXT, sID TEXT, imagePath TEXT, miniImagePath TEXT, script TEXT, time TEXT, subID INTEGER PRIMARY KEY AUTOINCREMENT)")
     db.commit()
     
 #add assignment (to galleries table)
 def addAssignment(title):
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     q = "INSERT INTO galleries VALUES ('%s', NULL)"%(title)
     c.execute(q)
     db.commit()
 
 #get assignment ID (assumes gallery title is unique)
 def getAssignmentID(title):
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     q = "SELECT id FROM galleries WHERE title = '%s'"%(title)
     return c.execute(q).fetchone()[0]
 
 #add submission (to submissions table)
 def addSubmission(gID, title, sID, img, mini, script, time):
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     q = "INSERT INTO submissions VALUES (%d, '%s', '%s', '%s', '%s', '%s', '%s', NULL)"%(gID, title, sID, img, mini, script, time)
     c.execute(q)
     db.commit()
@@ -75,6 +103,9 @@ def addSubmission(gID, title, sID, img, mini, script, time):
 #assignments = galleries
 #changed the naming for easier understanding
 def getAllGalleries():
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     assignments = []
     for assignment in c.execute("SELECT * FROM galleries").fetchall():
         assignments += [ {"galleryName": str(assignment[0]), "gID": assignment[1]} ]
@@ -82,6 +113,9 @@ def getAllGalleries():
     
 #get all submissions for a given gallery
 def getAllSubmissions(gID):
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     subs = []
     for sub in c.execute("SELECT * FROM submissions WHERE galleryID = %d"%(gID)).fetchall():
         subs += [ {"gID": sub[0], "title": str(sub[1]), "sID": str(sub[2]), "imgPath": str(sub[3]), "miniImagePath": str(sub[4]), "script": str(sub[5]), "time": str(sub[6]), "subID": str(sub[7])} ]
@@ -89,6 +123,9 @@ def getAllSubmissions(gID):
 
 #get all submissions from a particular student
 def getAllWork(sID):
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     work = []
     for sub in c.execute("SELECT * FROM submissions WHERE sID = '%s'"%(sID)).fetchall():
         work += [ {"gID": sub[0], "title": str(sub[1]), "sID": str(sub[2]), "imgPath": str(sub[3]), "miniImagePath": str(sub[4]), "script": str(sub[5]), "time": str(sub[6]), "subID": str(sub[7])} ]
@@ -96,18 +133,27 @@ def getAllWork(sID):
 
 #get student Info from a given student id
 def getStudentInfo(sID):
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     studentInfo = []
     for student in c.execute("SELECT * FROM students WHERE id = '%s'"%(sID)).fetchall():
         studentInfo += [ {"displayName": student[0], "year": student[2]}]
     return studentInfo
 
 def getAllStudents():
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     students = []
     for student in c.execute("SELECT * FROM students").fetchall():
         students += [{"displayName": student[0], "studentID":student[1], "year": student[2]}]
     return students
 
 def deleteGallery(gID):
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     c.execute("DELETE FROM galleries WHERE id = %d"%(gID))
     #deleting the image files first
     try:
@@ -127,6 +173,9 @@ def deleteGallery(gID):
     db.commit()
 
 def getSubmission(subID):
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
     #should only output one dictionary, because each subID is unique
     submission = []
     for sub in c.execute("SELECT * FROM submissions WHERE subID = '%s'"%(subID)).fetchall():
