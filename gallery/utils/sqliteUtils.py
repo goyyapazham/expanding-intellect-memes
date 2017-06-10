@@ -88,6 +88,13 @@ def getAssignmentID(title):
     q = "SELECT id FROM galleries WHERE title = '%s'"%(title)
     return c.execute(q).fetchone()[0]
 
+def getGalleryName(gID):
+    db = sqlite3.connect(filename)
+    c = db.cursor()
+
+    q = "SELECT title FROM galleries WHERE id = '%s'"%(gID)
+    return c.execute(q).fetchone()[0]
+
 #add submission (to submissions table)
 def addSubmission(gID, title, sID, img, mini, script, time):
     db = sqlite3.connect(filename)
